@@ -7,14 +7,12 @@ import com.example.LibraryManagement.model.student.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/students")
 public class StudentController {
 
     @Autowired
@@ -23,20 +21,33 @@ public class StudentController {
     @Autowired
     StudentDao studentDao;
 
-    @GetMapping(value = "/students")
+
+
+    @GetMapping()
     public ResponseEntity<List<Student>> getStudent(){
         return new ResponseEntity<>(studentService.getAllStudent(), HttpStatus.OK);
     }
 
 
-    @GetMapping(value = "/students/{id}")
-    public ResponseEntity<List<Student>> getStudentById(@PathVariable("id") int id){
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable("id") int id){
 
         return new ResponseEntity<>(studentService.getStudentById(id), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/students/{id}")
+    @DeleteMapping(value = "/{id}")
     public void deleteStudent(@PathVariable("id") int id){
         studentDao.deleteStudentById(id);
+    }
+
+    @PutMapping(value = "/update")
+    public Student updateStudent(@RequestBody Student student){
+        return studentService.updateStudent(student);
+    }
+
+    @PostMapping()
+    public Student insertStudent(@RequestBody Student student){
+
+        return studentService.insertStudent(student);
     }
 }
