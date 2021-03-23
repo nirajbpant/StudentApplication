@@ -1,0 +1,1 @@
+Insert into Students values (2, 'Harisiddhi','Business','mike.stan@gmail.com','Mike','Stan',984131356);
