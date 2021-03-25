@@ -7,14 +7,13 @@ import com.example.LibraryManagement.model.library.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/books")
+@CrossOrigin("http://localhost:4200")
 public class LibraryController {
 
     @Autowired
@@ -23,16 +22,16 @@ public class LibraryController {
     @Autowired
     LibraryDao libraryDao;
 
-    @GetMapping(value = "/books")
+    @GetMapping()
     public ResponseEntity<List<Library>> getBooks(){
         return new ResponseEntity<>(libraryService.getAllBooks(), HttpStatus.OK);
     }
-    @GetMapping(value = "/books/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Library> getBooksById(@PathVariable("id") int id){
         return new ResponseEntity<>(libraryService.getBookById(id), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/books/{id}")
+    @DeleteMapping(value = "/{id}")
     public void deleteBooksById(@PathVariable("id") int id){
         libraryDao.deleteBookById(id);
     }

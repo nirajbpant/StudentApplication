@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
+@CrossOrigin("http://localhost:4200")
 public class UserController {
 
 
@@ -24,6 +25,7 @@ public class UserController {
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
+
 
     @GetMapping(value = "/{id}")
     public User getUserById(@PathVariable("id") int id){
@@ -41,7 +43,31 @@ public class UserController {
     }
 
     @PostMapping()
-    public User postUser(@RequestBody User user){
-        return userService.insertUser(user);
+    @CrossOrigin("http://localhost:4200")
+    public User postUser(@RequestBody User user) throws Exception{
+        String tempUsername= user.getUsername();
+        if(tempUsername != null && !"".equals(tempUsername)){
+           User userObj= userService.fetchUserByUsername(tempUsername);
+           if(userObj!=null){
+               throw new Exception("User already Exists");
+           }
+        }
+        User userObj= null;
+        userObj= userService.insertUser(user);
+        return userObj;
+    }
+    @PostMapping("/login")
+    @CrossOrigin("http://localhost:4200")
+    public User loginUser(@RequestBody User user) throws Exception{
+        String tempUsername =user.getUsername();
+        String tempPassword = user.getPassword();
+        User userObj = null;
+        if(tempUsername != null && tempPassword != null){
+          userObj= userService.fetchUserByUsernameAndPassword(tempUsername, tempPassword);
+        }
+        if(userObj == null){
+            throw new Exception("Bad Credentials");
+        }
+        return userObj;
     }
 }

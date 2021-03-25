@@ -2,17 +2,21 @@ package com.example.LibraryManagement.model.library;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@CrossOrigin("http://localhost:4200")
 @Repository
 public class LibraryDao {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public void deleteBookById(int id){
         String deleteQuery= "Delete from library where id = :id";
@@ -22,4 +26,14 @@ public class LibraryDao {
 
         namedParameterJdbcTemplate.update(deleteQuery,params);
     }
+
+   /*public Library sortByName(String name){
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate= new NamedParameterJdbcTemplate(jdbcTemplate);
+        String filterQuery= "select * from library where name like '%:name'";
+        Map<String, Object> params= new HashMap<>();
+        params.put("name",name);
+        return namedParameterJdbcTemplate.queryForList(filterQuery, params);
+    }
+    */
+
 }

@@ -11,8 +11,19 @@ public class Library {
 
     @Id
     private int bookId;
-    private String bookName;
+    private String name;
     private int count;
+    private String imageURL;
+
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
 
 
     public int getBookId() {
@@ -24,11 +35,11 @@ public class Library {
     }
 
     public String getBookName() {
-        return bookName;
+        return name;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setBookName(String name) {
+        this.name = name;
     }
 
     public int getCount() {

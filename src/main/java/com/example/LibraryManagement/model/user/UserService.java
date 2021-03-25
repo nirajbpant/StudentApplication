@@ -29,4 +29,12 @@ public class UserService {
     public User insertUser(User user) {
        return userDao.insertUser(user);
     }
+    
+    public User fetchUserByUsername(String username){
+       return userRepository.findByUsername(username);
+    }
+
+    public User fetchUserByUsernameAndPassword(String username, String password){
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
 }
