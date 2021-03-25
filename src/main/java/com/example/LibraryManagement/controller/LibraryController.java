@@ -35,4 +35,13 @@ public class LibraryController {
     public void deleteBooksById(@PathVariable("id") int id){
         libraryDao.deleteBookById(id);
     }
+
+    @PostMapping()
+    public Library insertUser(@RequestBody Library library){
+        return libraryDao.insertBook(library);
+    }
+    @PutMapping(value = "/update")
+    public Library updateBook(@RequestBody Library library){
+        return libraryDao.updateBook(library);
+    }
 }

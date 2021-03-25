@@ -1,15 +1,14 @@
 package com.example.LibraryManagement.model.library;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "library")
 public class Library {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookId;
     private String name;
     private int count;
