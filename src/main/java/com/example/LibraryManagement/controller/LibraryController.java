@@ -3,11 +3,13 @@ package com.example.LibraryManagement.controller;
 
 import com.example.LibraryManagement.model.library.Library;
 import com.example.LibraryManagement.model.library.LibraryDao;
+import com.example.LibraryManagement.model.library.LibraryRepository;
 import com.example.LibraryManagement.model.library.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 import java.util.List;
 
@@ -21,6 +23,9 @@ public class LibraryController {
 
     @Autowired
     LibraryDao libraryDao;
+
+    @Autowired
+    LibraryRepository libraryRepository;
 
     @GetMapping()
     public ResponseEntity<List<Library>> getBooks(){
@@ -40,8 +45,16 @@ public class LibraryController {
     public Library insertUser(@RequestBody Library library){
         return libraryDao.insertBook(library);
     }
-    @PutMapping(value = "/update")
-    public Library updateBook(@RequestBody Library library){
-        return libraryDao.updateBook(library);
+
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<Library> updateBook(@PathVariable(value = "id") int id
+            ,@Valid @RequestBody Library libraryDetails){
+        Library library= libraryRepository.findById(id);
+        library.setBookName(libraryDetails.getBookName());
+        library.setCount(libraryDetails.getCount());
+        library.setImageURL(libraryDetails.getImageURL());
+        final Library updatedBooks= libraryRepository.save(library);
+        return ResponseEntity.ok(updatedBooks);
+
     }
 }

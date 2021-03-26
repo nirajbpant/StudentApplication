@@ -14,6 +14,14 @@ public class Library {
     private int count;
     private String imageURL;
 
+    public Library(){
+
+    }
+    public Library(String name, int count, String imageURL) {
+        this.name = name;
+        this.count = count;
+        this.imageURL = imageURL;
+    }
 
     public String getImageURL() {
         return imageURL;
@@ -47,5 +55,15 @@ public class Library {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "bookId=" + bookId +
+                ", name='" + name + '\'' +
+                ", count=" + count +
+                ", imageURL='" + imageURL + '\'' +
+                '}';
     }
 }

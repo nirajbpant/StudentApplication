@@ -2,7 +2,7 @@ package com.example.LibraryManagement.security;
 
 public class UserSecurity {
     //@Override
-//    protected void configure(HttpSecurity http) throws Exception {​​​​​​​
+//    protected void configure(HttpSecurity http) throws Exception {
 //        http.authorizeRequests()
 //                .antMatchers("/","/books").permitAll()
 //                .antMatchers("/users").hasRole("ADMIN")
@@ -14,7 +14,7 @@ public class UserSecurity {
 //    }
 //
 //    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {​​​​​​​
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        BCryptPasswordEncoder encoder = getBCryptPasswordEncoder();
 //        auth.inMemoryAuthentication()
 //                .passwordEncoder(encoder)
